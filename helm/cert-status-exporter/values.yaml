@@ -105,7 +105,7 @@ rbac:
     annotations: {}
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
-    name: cert-exporter
+    name: cert-status-exporter
 
   clusterRole:
     # New role to grant to the service account
