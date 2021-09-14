@@ -2,7 +2,6 @@ package checkers
 
 import (
 	"context"
-	"log"
 	"path/filepath"
 	"time"
 
@@ -79,12 +78,14 @@ func (p *PeriodicSecretChecker) StartChecking() {
 		var secrets []corev1.Secret
 		var certs []certmanagerv1.Certificate
 
+		glog.Info("Starting to get Certificate objects")
 		var c *certmanagerv1.CertificateList
 		c, err = certClient.Certificates(p.namespace).List(context.TODO(), metav1.ListOptions{})
 		if err == nil {
 			certs = c.Items
+			glog.Infof("Finsihed getting Certificate objects. Total Certificates: %v", len(c.Items))
 		} else {
-			log.Print(err)
+			glog.Errorf("Error getting Certificates %v", err)
 
 		}
 
