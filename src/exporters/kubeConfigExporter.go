@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"path"
 
-	"github.com/joe-elliott/cert-exporter/src/kubeconfig"
-	"github.com/joe-elliott/cert-exporter/src/metrics"
+	"github.com/m-augustine/cert-status-exporter/src/kubeconfig"
+	"github.com/m-augustine/cert-status-exporter/src/metrics"
 )
 
 // KubeConfigExporter exports kubeconfig certs

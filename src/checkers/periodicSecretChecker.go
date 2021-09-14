@@ -13,8 +13,8 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	"k8s.io/client-go/tools/clientcmd"
 
-	"github.com/joe-elliott/cert-exporter/src/exporters"
-	"github.com/joe-elliott/cert-exporter/src/metrics"
+	"github.com/m-augustine/cert-status-exporter/src/exporters"
+	"github.com/m-augustine/cert-status-exporter/src/metrics"
 
 	// acmev1 "github.com/jetstack/cert-manager/pkg/client/clientset/versioned/typed/acme/v1"
 	certmanagerv1 "github.com/jetstack/cert-manager/pkg/apis/certmanager/v1"

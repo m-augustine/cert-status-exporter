@@ -1,9 +1,9 @@
-FROM golang:1.14 as build
+FROM golang:1.17 as build
 WORKDIR /src
 
 COPY . .
-RUN go mod download && \
-    CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 
 FROM alpine:3.12
 
