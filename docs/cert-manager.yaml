@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: cert-exporter
+  name: cert-exporter
+spec:
+  selector:
+    matchLabels:
+      name: cert-exporter
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      labels:
+        name: cert-exporter
+    spec:
+      serviceAccountName: cert-exporter
+      containers:
+      - image: joeelliott/cert-exporter:v2.7.0
+        name: cert-exporter
+        command: ["./app"]
+        args:
+        - --secrets-annotation-selector=cert-manager.io/certificate-name
+        - --secrets-include-glob=*.crt
+        - --logtostderr
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: secret-reader
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-exporter
+subjects:
+- kind: ServiceAccount
+  name: cert-exporter
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cert-exporter
