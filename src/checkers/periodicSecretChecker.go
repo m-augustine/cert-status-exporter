@@ -2,6 +2,7 @@ package checkers
 
 import (
 	"context"
+	"log"
 	"path/filepath"
 	"time"
 
@@ -82,6 +83,9 @@ func (p *PeriodicSecretChecker) StartChecking() {
 		c, err = certClient.Certificates(p.namespace).List(context.TODO(), metav1.ListOptions{})
 		if err == nil {
 			certs = c.Items
+		} else {
+			log.Print(err)
+
 		}
 
 		if len(p.labelSelectors) > 0 {
