@@ -1,7 +1,7 @@
-apiVersion: v1.0.0
+apiVersion: v1.0.1
 name: cert-status-exporter
 description: Monitors and exposes PKI information as Prometheus metrics including expiriation time of certificates in secrets and the status of the parent Certificate object
 
 type: application
-version: 1.0.0
-appVersion: v1.0.0
+version: 1.0.1
+appVersion: v1.0.1

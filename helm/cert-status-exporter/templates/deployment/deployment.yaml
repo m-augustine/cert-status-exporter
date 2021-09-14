@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{- include "cert-exporter.fullname" . -}}-cert-manager"
+  name: "{{- include "cert-exporter.fullname" . -}}"
   labels:
     {{- include "cert-exporter.certManagerDeploymentLabels" . | nindent 4 }}
 spec:
@@ -27,7 +27,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.certManagerDeployment.deployment.securityContext | nindent 12 }}
-          image: "{{ .Values.certManagerDeployment.deployment.image.repository  }}:{{ .Chart.AppVersion }}"
+          image: "{{ .Values.certManagerDeployment.deployment.image.repository  }}:{{ .Values.certManagerDeployment.deployment.image.tag }}"
           imagePullPolicy: {{ .Values.certManagerDeployment.deployment.image.pullPolicy }}
           {{- with .Values.certManagerDeployment.deployment.image.command  }}
           command:
