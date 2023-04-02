@@ -3,6 +3,16 @@ entries:
   cert-status-exporter:
   - apiVersion: v1.0.1
     appVersion: v1.0.1
+    created: "2023-04-02T02:43:42.385572707Z"
+    description: Monitors and exposes PKI information as Prometheus metrics including expiriation time of certificates in secrets and the status of the parent Certificate object
+    digest: 40c6f0b9087ede7eba18e522d2e8722e9c22b1066dbc43c7041cb70f89ffcaae
+    name: cert-status-exporter
+    type: application
+    urls:
+    - https://github.com/m-augustine/cert-status-exporter/releases/download/cert-status-exporter-1.0.2/cert-status-exporter-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v1.0.1
+    appVersion: v1.0.1
     created: "2021-09-14T21:49:14.137016017Z"
     description: Monitors and exposes PKI information as Prometheus metrics including expiriation time of certificates in secrets and the status of the parent Certificate object
     digest: 88df7a9c1c918dbfdddd6ccd6b5524395be2f05717b0746f5cab6e0984e64b61
