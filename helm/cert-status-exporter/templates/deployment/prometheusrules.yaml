@@ -1,0 +1,31 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "cert-exporter.fullname" . }}
+  labels:
+    {{ include "cert-exporter.certManagerDeploymentLabels" . | nindent 4 }}
+    release: prometheus
+spec:
+  groups:
+  - name: certificates.rules
+    rules:
+      # Alert on all certs that live within secrets in all namespaces (for all clusters)
+      - alert: cert_not_refreshing_cert_expiring
+        expr: (cert_exporter_secret_expires_in_seconds{secret_namespace!="pullrequests"} / 60 / 60 / 24) < 10
+        for: 10m
+        labels:
+          severity: warning
+          system: ops
+        annotations:
+          message: "Cert-manager has failed to refresh the certificate {{ $labels.secret_name }} in namespace {{ $labels.secret_name }}"
+          description: "This happens if the `Certificate` object no longer exists in Kubernetes. The Ingress may be failing to make the certificate. Check that the annotations are correct for cert-manager `cert-manager.io`. Sometimes we create certificates manually, so the Certificate object may need to be restored manually."
+      
+      - alert: cert_not_refreshing_cert_expiring
+        expr: (cert_exporter_secret_expires_in_seconds{secret_namespace!="pullrequests"} / 60 / 60 / 24) < 5
+        for: 10m
+        labels:
+          severity: high
+          system: ops
+        annotations:
+          message: "Cert-manager has failed to refresh the certificate {{ $labels.secret_name }} in namespace {{ $labels.secret_name }}"
+          description: "This happens if the `Certificate` object no longer exists in Kubernetes. The Ingress may be failing to make the certificate. Check that the annotations are correct for cert-manager `cert-manager.io`. Sometimes we create certificates manually, so the Certificate object may need to be restored manually."
