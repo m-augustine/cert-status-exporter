@@ -17,7 +17,7 @@ spec:
           severity: warning
           system: ops
         annotations:
-          message: "Cert-manager has failed to refresh the certificate {{ $labels.secret_name }} in namespace {{ $labels.secret_name }}"
+          message: "Cert-manager has failed to refresh the certificate {{ "{{ $labels.secret_name }}" }} in namespace {{ "{{ $labels.secret_namespace }}" }}"
           description: "This happens if the `Certificate` object no longer exists in Kubernetes. The Ingress may be failing to make the certificate. Check that the annotations are correct for cert-manager `cert-manager.io`. Sometimes we create certificates manually, so the Certificate object may need to be restored manually."
       
       - alert: cert_not_refreshing_cert_expiring
@@ -27,5 +27,5 @@ spec:
           severity: high
           system: ops
         annotations:
-          message: "Cert-manager has failed to refresh the certificate {{ $labels.secret_name }} in namespace {{ $labels.secret_name }}"
+          message: "Cert-manager has failed to refresh the certificate {{ "{{ $labels.secret_name }}" }} in namespace {{ "{{ $labels.secret_namespace }}" }}"
           description: "This happens if the `Certificate` object no longer exists in Kubernetes. The Ingress may be failing to make the certificate. Check that the annotations are correct for cert-manager `cert-manager.io`. Sometimes we create certificates manually, so the Certificate object may need to be restored manually."
